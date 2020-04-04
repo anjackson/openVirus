@@ -2,7 +2,13 @@ const puppeteer = require('puppeteer');
 
 (async() => {
 
-const browser = await puppeteer.launch();
+const browser = await puppeteer.launch({
+    headless: true,
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+    ]
+  });
 
 const page = await browser.newPage();
 await page.goto('https://royalsocietypublishing.org/action/doSearch?text1=respirator&openAccess=18');
@@ -24,7 +30,9 @@ while (repeat) {
     }
 }
 
-await page.screenshot({path: 'screenshot.png'});
+//await page.screenshot({path: 'screenshot.png'});
+
+await browser.close();
 
 })();
 
